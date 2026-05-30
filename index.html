@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E L Y S I U M // Hyper-Luxury Real Estate</title>
+    <!-- Google Fonts: Syncopate for aggressive architectural headers & Syne for chic accents -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=Syne:wght@400;500;700&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-color: #0b0b0b;
+            --text-color: #f5f5f7;
+            --accent-color: #d4af37; /* Subtle muted luxury gold */
+            --muted-text: #86868b;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --font-display: 'Syncopate', sans-serif;
+            --font-accent: 'Syne', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: var(--font-body);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Custom Awwwards-style Webkit Scrollbar */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 3px;
+        }
+
+        /* Custom Interactive Mouse Cursor */
+        #custom-cursor {
+            width: 20px;
+            height: 20px;
+            border: 1px solid var(--text-color);
+            border-radius: 50%;
+            position: fixed;
+            transform: translate(-50%, -50%);
+            pointer-events: none;
+            z-index: 9999;
+            mix-blend-mode: difference;
+            transition: width 0.3s, height 0.3s, background-color 0.3s;
+        }
+
+        .cursor-hover #custom-cursor {
+            width: 50px;
+            height: 50px;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 30px 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            background: rgba(11, 11, 11, 0.7);
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1.2rem;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-family: var(--font-accent);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 4px;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background-color: var(--text-color);
+            transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-cta {
+            border: 1px solid var(--text-color);
+            padding: 10px 24px;
+            font-family: var(--font-accent);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: background 0.4s, color 0.4s;
+        }
+
+        .nav-cta:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 0 4% 8vh 4%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Ambient video overlay simulation via dynamic placeholder images */
+        .hero-bg-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            transform: scale(1.05);
+            filter: brightness(0.45) contrast(1.1);
+            background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            animation: slowPan 25s infinite alternate ease-in-out;
+        }
+
+        @keyframes slowPan {
+            0% { transform: scale(1.05) translateY(0); }
+            100% { transform: scale(1.12) translateY(-2%); }
+        }
+
+        .hero-title-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tagline {
+            font-family: var(--font-accent);
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 20px;
+            display: block;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: revealUp 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 0.2s;
+        }
+
+        .hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 7vw, 7.5rem);
+            line-height: 0.95;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            font-weight: 700;
+            margin-bottom: 40px;
+        }
+
+        .hero h1 span {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero h1 span i {
+            display: block;
+            font-style: normal;
+            transform: translateY(100%);
+            animation: revealUp 1.4s cubic-bezier(0.215, 0.61, 0.355, 1) forwards 0.4s;
+        }
+
+        .hero-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            border-top: 1px solid rgba(255,255,255,0.15);
+            padding-top: 30px;
+            opacity: 0;
+            animation: fadeIn 1.5s ease forwards 1s;
+        }
+
+        .scroll-indicator {
+            font-family: var(--font-accent);
+            text-transform: uppercase;
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .scroll-indicator::after {
+            content: '';
+            width: 40px;
+            height: 1px;
+            background-color: var(--text-color);
+            display: inline-block;
+        }
+
+        .hero-coordinates {
+            font-family: var(--font-accent);
+            color: var(--muted-text);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-align: right;
+        }
+
+        @keyframes revealUp {
+            to { transform: translateY(0); opacity: 1; }
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* --- REVEAL ON SCROLL CONTAINER --- */
+        .reveal-section {
+            padding: 160px 4%;
+            border-bottom: 1px solid var(--border-color);
+            position: relative;
+        }
+
+        /* --- THE ARCHITECTURE MATRIX (Asymmetric Grid) --- */
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .matrix-text-side {
+            padding-right: 15%;
+        }
+
+        .section-label {
+            font-family: var(--font-accent);
+            text-transform: uppercase;
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .matrix-text-side h2 {
+            font-family: var(--font-display);
+            font-size: 2.8rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            letter-spacing: -1px;
+        }
+
+        .matrix-text-side p {
+            color: var(--muted-text);
+            font-size: 1.1rem;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+
+        /* Image Reveal Masking Animation */
+        .matrix-image-side {
+            position: relative;
+            width: 100%;
+            height: 650px;
+            overflow: hidden;
+            border-radius: 4px;
+        }
+
+        .reveal-mask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1);
+            z-index: 2;
+            transform-origin: right;
+        }
+
+        .reveal-active .reveal-mask {
+            transform: scaleX(0);
+        }
+
+        .matrix-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1.2);
+            transition: transform 1.5s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .reveal-active .matrix-img {
+            transform: scale(1);
+        }
+
+        /* --- PORTFOLIO CURATION --- */
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 80px;
+        }
+
+        .portfolio-header h2 {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            text-transform: uppercase;
+            line-height: 1;
+        }
+
+        .showcase-slider {
+            display: flex;
+            gap: 40px;
+            overflow-x: auto;
+            padding-bottom: 40px;
+            scroll-snap-type: x mandatory;
+        }
+
+        .showcase-slider::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        .showcase-item {
+            min-width: calc(45% - 20px);
+            scroll-snap-align: start;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .showcase-img-box {
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            margin-bottom: 25px;
+            position: relative;
+            border-radius: 2px;
+        }
+
+        .showcase-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        .showcase-item:hover .showcase-img-box img {
+            transform: scale(1.06);
+        }
+
+        .showcase-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+        }
+
+        .showcase-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .showcase-location {
+            font-family: var(--font-accent);
+            color: var(--muted-text);
+            font-size: 0.9rem;
+        }
+
+        /* --- ULTRA-SEXY INTERACTIVE CTA --- */
+        .epic-cta {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border-bottom: none;
+        }
+
+        .big-trigger-text {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 6vw, 6rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.1;
+            background: linear-gradient(90deg, #fff, var(--muted-text), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shineText 6s linear infinite;
+            cursor: pointer;
+            transition: transform 0.4s;
+        }
+
+        @keyframes shineText {
+            to { background-position: 200% center; }
+        }
+
+        .big-trigger-text:hover {
+            transform: scale(1.03);
+        }
+
+        .sub-cta-text {
+            margin-top: 40px;
+            font-family: var(--font-accent);
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            padding: 60px 4%;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            color: var(--muted-text);
+            font-size: 0.85rem;
+            font-family: var(--font-accent);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Fixes */
+        @media(max-width: 900px) {
+            .matrix-grid { grid-template-columns: 1fr; gap: 40px; }
+            .matrix-text-side { padding-right: 0; }
+            .showcase-item { min-width: 85%; }
+            .nav-links { display: none; }
+            .matrix-image-side { height: 400px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Dynamic Tracking Cursor -->
+    <div id="custom-cursor"></div>
+
+    <!-- Minimal Modern Navigation -->
+    <nav>
+        <div class="logo">Elysium</div>
+        <div class="nav-links">
+            <a href="#architecture" class="hover-target">Manifesto</a>
+            <a href="#curation" class="hover-target">The Collection</a>
+            <a href="#reserve" class="hover-target">Inquire</a>
+        </div>
+        <div class="nav-cta hover-target">Private Portal</div>
+    </nav>
+
+    <!-- Hero Display Section -->
+    <section class="hero">
+        <div class="hero-bg-container"></div>
+        <div class="hero-title-wrapper">
+            <span class="hero-tagline">Architectural Monuments</span>
+            <h1>
+                <span><i>Living</i></span>
+                <span><i>As An Art</i></span>
+                <span><i>Form.</i></span>
+            </h1>
+        </div>
+        <div class="hero-footer">
+            <div class="scroll-indicator">Scroll to Explore</div>
+            <div class="hero-coordinates">24°51'36"N // 67°00'36"E</div>
+        </div>
+    </section>
+
+    <!-- Asymmetric Information Section (The Architecture Matrix) -->
+    <section id="architecture" class="reveal-section">
+        <div class="matrix-grid">
+            <div class="matrix-text-side">
+                <span class="section-label">01 // Architectural Purity</span>
+                <h2>Spaces engineered to framing horizons.</h2>
+                <p>We refuse standard development frameworks. Elysium coordinates with structural artists globally to form properties that act as personal micro-ecosystems. Every structural angle is calculated to sync naturally with ambient natural illumination properties throughout seasonal cycles.</p>
+            </div>
+            <div class="matrix-image-side hover-target">
+                <div class="reveal-mask"></div>
+                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80" alt="Minimal Concrete Architecture" class="matrix-img">
+            </div>
+        </div>
+    </section>
+
+    <!-- The Curation Gallery Showcase -->
+    <section id="curation" class="reveal-section">
+        <div class="portfolio-header">
+            <div>
+                <span class="section-label">02 // Elite Portfolios</span>
+                <h2>Current Realities</h2>
+            </div>
+        </div>
+
+        <div class="showcase-slider">
+            <!-- Item 1 -->
+            <div class="showcase-item hover-target">
+                <div class="showcase-img-box">
+                    <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1000&q=80" alt="The Obsidian Villa">
+                </div>
+                <div class="showcase-meta">
+                    <span class="showcase-title">The Obsidian Monolith</span>
+                    <span class="showcase-location">Kyoto, Japan</span>
+                </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="showcase-item hover-target">
+                <div class="showcase-img-box">
+                    <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=1000&q=80" alt="Amorphic Horizon Cliffside">
+                </div>
+                <div class="showcase-meta">
+                    <span class="showcase-title">Amorphic Horizon</span>
+                    <span class="showcase-location">Amalfi, Italy</span>
+                </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="showcase-item hover-target">
+                <div class="showcase-img-box">
+                    <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1000&q=80" alt="Nirvana Crest Oasis">
+                </div>
+                <div class="showcase-meta">
+                    <span class="showcase-title">Nirvana Crest</span>
+                    <span class="showcase-location">Malibu, USA</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Immersive Interactive Outro Action Trigger -->
+    <section id="reserve" class="reveal-section epic-cta">
+        <span class="section-label" style="margin-bottom: 10px;">Membership Registration</span>
+        <div class="big-trigger-text hover-target">Begin Acquisition</div>
+        <div class="sub-cta-text">— By Invitation Only —</div>
+    </section>
+
+    <!-- High-end Structural Editorial Footer -->
+    <footer>
+        <div>© 2026 Elysium Estates Inc.</div>
+        <div>Designed for the Avant-Garde Portfolio</div>
+        <div>Awwwards Concept Lab // Github Edition</div>
+    </footer>
+
+    <!-- Interactive Experience Scripting -->
+    <script>
+        // Custom Fluid Mouse Tracker Engine
+        const cursor = document.getElementById('custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Track and scale hover interaction tags
+        const targets = document.querySelectorAll('.hover-target');
+        targets.forEach(item => {
+            item.addEventListener('mouseenter', () => {
+                document.body.classList.add('cursor-hover');
+            });
+            item.addEventListener('mouseleave', () => {
+                document.body.classList.remove('cursor-hover');
+            });
+        });
+
+        // Intersection Observer for Cinematic Entry Mask Reveals
+        const revealOptions = {
+            threshold: 0.15,
+            rootMargin: "0px 0px -50px 0px"
+        };
+
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal-active');
+                    observer.unobserve(entry.target); // Trigger only once
+                }
+            });
+        }, revealOptions);
+
+        // Bind observe mechanics to layout sections
+        document.querySelectorAll('.reveal-section').forEach(section => {
+            revealObserver.observe(section);
+        });
+    </script>
+</body>
+</html>
